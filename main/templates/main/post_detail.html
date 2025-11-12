@@ -1,0 +1,26 @@
+{% extends 'main/base.html' %}
+
+{% block title %}
+	<title>Post Detail</title>
+{% endblock title %}
+
+{% block content %}
+	<article class="d-flex align-items-start my-4 border border-3 p-3 rounded bg-white">
+		<img src="{{ object.author.profile.image.url }}" class="rounded-circle me-3" style="width: 64px; height: 64px;">
+		<div class="flex-grow-1">
+			<div class="d-flex justify-content-between">
+				<a href="{% url 'user-posts' object.author.username %}" class="text-decoration-none">{{ object.author }}</a>
+				<small>{{ object.date_posted}}</small>
+			</div>
+			{% if object.author == user %}
+			<div class="my-2">
+				<a href="{% url 'post-update' object.id %}" class="btn btn-primary btn-sm">Update</a>
+				<a href="{% url 'post-delete' object.id %}" class="btn btn-danger btn-sm">Delete</a>
+			</div>
+			{% endif %}
+			<hr>
+			<h2 class="mt-2">{{ object.title }}</h2>
+			<p>{{ object.content }}</p>
+		</div>
+	</article>
+{% endblock content %}
